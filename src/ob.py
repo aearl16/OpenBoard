@@ -57,6 +57,13 @@ if len(sys.argv) != 0:
         print("Success!\n")
     elif('--ShowAll' == sys.argv[1] or '--SA' == sys.argv[1] and '--Board' == sys.argv[2]):
         outlist = db.queryToList("SELECT * FROM ScrumBoard")
+        #Add some space btween the command line and the entry
+        print("\n")
+        #Print the header
+        print("####################################################\n" +
+              "##                 Scrum Boards                   ##\n" +
+              "####################################################\n")
+        #Print the items from the board
         for board in outlist:
             print(board)
             print("\n")
