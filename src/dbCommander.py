@@ -16,13 +16,6 @@ import sys
 
 class dbCommander():
 
-    #Global Class variables
-    global conn
-    global cursor
-    #Initialize globals
-    conn = None
-    cursor = None
-
     #Constructor
     def __init__(self):
 

@@ -51,12 +51,15 @@ if len(sys.argv) != 0:
         for item in arglist:
             print(item + "\n")
     elif('--Create' == sys.argv[1] or '--C' == sys.argv[1] and '--Board' == sys.argv[2]):
+        #Used mysql NOW() for inserting datetime
         db.statementCommit("INSERT INTO ScrumBoard (CreationDate)\
-        VALUES(" + datetime.today().isoformat() + ");")
+        VALUES(NOW());")
         print("Success!\n")
     elif('--ShowAll' == sys.argv[1] or '--SA' == sys.argv[1] and '--Board' == sys.argv[2]):
         outlist = db.queryToList("SELECT * FROM ScrumBoard")
-        print(outlist)
+        for board in outlist:
+            print(board)
+            print("\n")
     else:
         print("Unknown command")
         sys.exit(2)
