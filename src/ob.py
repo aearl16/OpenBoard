@@ -90,8 +90,14 @@ if len(sys.argv) != 0:
         else:
             print("Correct Command Unknown Arguments")
     elif('--Delete' == sys.argv[1] or '--D' == sys.argv[1] and '--Board' == sys.argv[2]):
-        db.statementCommit("DELETE FROM ScrumBoard WHERE BoardID = " + "'" + str(sys.argv[3]) + "'" + ";")
-        print("Success!\n")
+        userPrompt = input("Are you sure? (y/n): ")
+        if(userPrompt == 'y' or userPrompt == 'Y'):
+            db.statementCommit("DELETE FROM ScrumBoard WHERE BoardID = " + "'" + str(sys.argv[3]) + "'" + ";")
+            print("Success!\n")
+        elif(userPrompt == 'n' or userPrompt == 'N'):
+            print("Canceled")
+        else:
+            print("Incorrect Input Exiting")
     else:
         print("Unknown command")
         sys.exit(2)
