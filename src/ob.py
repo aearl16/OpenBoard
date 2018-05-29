@@ -55,18 +55,43 @@ if len(sys.argv) != 0:
         db.statementCommit("INSERT INTO ScrumBoard (CreationDate)\
         VALUES(NOW());")
         print("Success!\n")
-    elif('--ShowAll' == sys.argv[1] or '--SA' == sys.argv[1] and '--Board' == sys.argv[2]):
-        outlist = db.queryToList("SELECT * FROM ScrumBoard")
-        #Add some space btween the command line and the entry
-        print("\n")
-        #Print the header
-        print("####################################################\n" +
-              "##                 Scrum Boards                   ##\n" +
-              "####################################################\n")
-        #Print the items from the board
-        for board in outlist:
-            print(board)
+    elif('--Create' == sys.argv[1] or '--C' == sys.argv[1] and '--Backlog' == sys.argv[2]):
+        db.statementCommit("INSERT INTO Backlog (CreationDate)\
+        VALUES(NOW());")
+        print("Success!\n")
+    elif('--Add' == sys.argv[1] or '--A' == sys.argv[1] and 'Backlog' == sys.argv[2]):
+        db.statementCommit("UPDATE ScrumBoard SET BacklogID = " + "'" + str(sys.argv[3]) + "'" + "WHERE BoardID = " + "'" + str(sys.argv[4]) + "'" + ";")
+        print("Success!\n")
+    elif('--ShowAll' == sys.argv[1] or '--SA' == sys.argv[1]):
+        if('--Board' == sys.argv[2]):
+            outlist = db.queryToList("SELECT * FROM ScrumBoard")
+            #Add some space btween the command line and the entry
             print("\n")
+            #Print the header
+            print("####################################################\n" +
+                  "##                 Scrum Boards                   ##\n" +
+                  "####################################################\n")
+            #Print the items from the board
+            for board in outlist:
+                print(board)
+                print("\n")
+        elif('--Backlog' == sys.argv[2]):
+            outlist = db.queryToList("SELECT * FROM Backlog;")
+            #Add some space btween the command line and the entry
+            print("\n")
+            #Print the header
+            print("####################################################\n" +
+                  "##                   Backlogs                     ##\n" +
+                  "####################################################\n")
+            #Print the items from the board
+            for log in outlist:
+                print(log)
+                print("\n")
+        else:
+            print("Correct Command Unknown Arguments")
+    elif('--Delete' == sys.argv[1] or '--D' == sys.argv[1] and '--Board' == sys.argv[2]):
+        db.statementCommit("DELETE FROM ScrumBoard WHERE BoardID = " + "'" + str(sys.argv[3]) + "'" + ";")
+        print("Success!\n")
     else:
         print("Unknown command")
         sys.exit(2)
